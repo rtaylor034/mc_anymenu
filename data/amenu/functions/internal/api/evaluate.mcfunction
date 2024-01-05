@@ -8,8 +8,7 @@
 #--------------------
 #- example <target>s :"block 1 2 3", "entity @s"
 #--------------------
-# 0 - container does not have the slots to support <items>, failure.
-# 1 - success
+# ...
 #--------------------
 
 $data modify storage amenu:in evaluate set value $(in)

@@ -1,0 +1,1 @@
+#>amenu:settings

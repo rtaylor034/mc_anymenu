@@ -3,7 +3,7 @@
 # -> path: string[]
 # -> identifier: {UUID: uuid} | {x: int, y: int, z: int}
 # -> menu_index: int
-# -> payload: obj
+# => payload: obj = {}
 #--------------------
 # 1 - success
 # -1 - <identifier> is not an active menu or is invalid. 
@@ -20,6 +20,7 @@
 #--------------------
 
 $data modify storage amenu:in load set value $(in)
+execute unless data storage amenu:in load.payload run data modify storage amenu:in load.payload set value {}
 
 execute store result score *load amenu_return run function amenu:impl/menu/load/do with storage amenu:in load
 

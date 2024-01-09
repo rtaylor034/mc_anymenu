@@ -13,6 +13,8 @@
 # 0 - container does not have the slots to support <items>, failure.
 # 1 - success
 #--------------------
+#~ could technically *slightly* more efficient if <target> followed the same format as amenu:api/menu/load's, but this way its mOrE DYnaMiC
+#--------------------
 
 $data modify storage amenu:in fill set value $(in)
 

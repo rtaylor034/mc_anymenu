@@ -31,7 +31,7 @@ function amenu:internal/api/evaluate with storage amenu:var evaluate
 data modify storage amenu:var load.items set from storage amenu:out evaluate.result
 
 #target set
-execute if data storage amenu:in load.identifier.x run function amenu:impl/menu/load/block_target with storage amenu:in load.identifier
+execute if data storage amenu:in load.identifier.x run data modify storage amenu:in fill.in.target.block set from storage amenu:in load.identifier
 execute if data storage amenu:in load.identifier.UUID run function amenu:impl/menu/load/entity_target with storage amenu:in load.identifier
 
 data modify storage amenu:in fill.in.items set from storage amenu:var load.items

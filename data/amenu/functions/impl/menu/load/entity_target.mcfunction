@@ -3,4 +3,4 @@
 # - ./do
 #--------------------
 
-$data modify storage amenu:in fill.in.target set value "entity @e[nbt={UUID:$(UUID)},limit=1]"
+$data modify storage amenu:in fill.in.target.entity set value "@e[nbt={UUID:$(UUID)},limit=1]"

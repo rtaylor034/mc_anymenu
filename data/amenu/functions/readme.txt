@@ -19,7 +19,10 @@ amenu:data {
 }
 
 Host: {
-    menus[]: Menu
+    menus[]: {
+        internal: {menu_id: int}
+        (Menu)
+    }
     container_path: string
     internal: {
         saved_items[]: Item

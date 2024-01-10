@@ -1,17 +1,17 @@
 #> amenu:api > menu/load
 #--------------------
+# -> host: {UUID: uuid} | {x: int, y: int, z: int}
+# -> menu_id: MenuId
 # -> path: string[]
-# -> identifier: {UUID: uuid} | {x: int, y: int, z: int}
-# -> menu_index: int
 # => payload: obj = {}
 #--------------------
 # 1 - success
-# -1 - <identifier> is not an active menu or is invalid. 
+# -1 - <host> is not an active host or is invalid. 
 # -2 - <path> does not exist in the given menu.
-# -3 - <menu_index> is invalid.
+# -3 - <menu_id> is invalid.
 # -4 - container specified by <identifier> does not have the slots to support the specified menu.
 #--------------------
-#> loads and displays the menu at the given <path> (and <menu_index>) with <payload> on an active menu container (<identifier>)
+#> loads and displays the menu at the given <path> (and <menu_id>) with <payload> on an active <host>
 #> IMPORTANT - loaded menu is NOT checked for validity. Duplicate/missing slots may cause undefined behavior.
 #--------------------
 #- expected slots are defined by the root menu's items.

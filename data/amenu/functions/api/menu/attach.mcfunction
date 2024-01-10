@@ -3,6 +3,7 @@
 # -> host: {x: int, y: int, z: int} | {UUID: uuid}
 # -> container_path: string
 # -> menu: Menu
+# => fluid: bool = false
 #--------------------
 # <- menu_id: MenuId
 #--------------------

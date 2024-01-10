@@ -19,15 +19,20 @@ amenu:data {
 }
 
 Host: {
-    menus[]: {
-        internal: {menu_id: int}
-        (Menu)
-    }
+    menus[]: RootMenu
     container_path: string
+    saved_items[]: Item
     internal: {
-        saved_items[]: Item
         prev_items[]: Item
     }
+}
+
+RootMenu: {
+    fluid: bool
+    internal: {
+        menu_id: int
+    }
+    (Menu)
 }
 
 Menu: {
@@ -43,7 +48,7 @@ MenuItem: {
     source? {
         storage: string
         path: string
-        index? int
+        index? any
     }
 }
 Item: {
@@ -53,3 +58,11 @@ Item: {
     tag: ITEM NBT
 }
 
+-- WHERE IM AT --
+what to do/how to implement stacking/fluid menus (i.e. multiple menus in a single host that would overlap)
+
+-- THOUGHTS --
+- by default the menu last loaded should stack on-top of other menus
+- menus should NOT be able to resize, the root menu slots define all submenu slots
+- on death/block broken, dropped 'menu items' should be detected and their item data should be replaced with their corresponding Slot's saved item (opposed to just killing them and summoning new items)
+- fliud menus will try to move out of the way if another menu would cover them

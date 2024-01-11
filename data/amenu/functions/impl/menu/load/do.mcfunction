@@ -4,13 +4,13 @@
 #--------------------
 
 #kinda cheugy but not a huge deal
-execute if data storage amenu:in load.host.UUID run data modify storage amenu:var load.container_pool set from storage amenu:data active_menus.entities
-execute if data storage amenu:in load.host.x run data modify storage amenu:var load.container_pool set from storage amenu:data active_menus.blocks
+execute if data storage amenu:in load.host.UUID run data modify storage amenu:var load.host_pool set from storage amenu:data active_hosts.entities
+execute if data storage amenu:in load.host.x run data modify storage amenu:var load.host_pool set from storage amenu:data active_hosts.blocks
 
-$data modify storage amenu:var load.this_container set from storage amenu:var load.container_pool[$(host)]
-execute unless data storage amenu:var load.this_container run return -1
+$data modify storage amenu:var load.this_host set from storage amenu:var load.host_pool[$(host)]
+execute unless data storage amenu:var load.this_host run return -1
 
-$data modify storage amenu:var load.this_menu set from storage amenu:var load.this_container.menus[{internal:{menu_id:$(menu_id)}}]
+$data modify storage amenu:var load.this_menu set from storage amenu:var load.this_host.menus[{internal:{menu_id:$(menu_id)}}]
 execute unless data storage amenu:var load.this_menu run return -3
 
 data modify storage amenu:in traverse_path.in.path set from storage amenu:in load.path
@@ -35,3 +35,7 @@ data modify storage amenu:in fill.in.target set from storage amenu:in load.host
 data modify storage amenu:in fill.in.items set from storage amenu:var load.items
 execute store result score *load.success amenu_var run function amenu:internal/api/fill with storage amenu:in fill
 execute if score *load.success amenu_var matches 0 run return -4
+
+$execute if data storage amenu:in load.host.UUID run data modify storage amenu:data active_hosts.entities[$(host)].menus[{menu_id:$(menu_id)}].internal.current_items set from storage amenu:var load.items
+
+$execute if data storage amenu:in load.host.x run data modify storage amenu:data active_hosts.blocks[$(host)].menus[{menu_id:$(menu_id)}].internal.current_items set from storage amenu:var load.items

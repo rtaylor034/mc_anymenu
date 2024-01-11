@@ -21,19 +21,16 @@ amenu:data {
 Host: {
     menus[]: RootMenu
     container_path: string
-    saved_items[]: Item
     internal: {
         prev_items[]: Item
+        saved_items[]: Item
     }
 }
 
 RootMenu: {
-    fluid: bool
     internal: {
-        fluid_map?: {
-            from: byte
-            to: byte
-        }
+        #-- for knowing what items to load if menu <a> is 'uncovered' by menu <b> being detached
+        current_items[]: Item
         menu_id: int
     }
     (Menu)
@@ -75,3 +72,6 @@ what to do/how to implement stacking/fluid menus (i.e. multiple menus in a singl
 - Implement stacking for 'api/load'
 - attach
 - detach
+
+-- SHOULDS --
+- anymenu's 'tick' should be before all dependent packs. (this primarily so menu items dropped on death can be killed before being detected)

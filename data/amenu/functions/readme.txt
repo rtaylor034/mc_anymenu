@@ -20,17 +20,18 @@ amenu:data {
 
 Host: {
     menus[]: RootMenu
-    container_path: string
     internal: {
         prev_items[]: Item
         saved_items[]: Item
+        checked_containers[]: {path: string}
     }
 }
 
 RootMenu: {
     internal: {
-        #-- for knowing what items to load if menu <a> is 'uncovered' by menu <b> being detached
-        current_items[]: Item
+        #-- for knowing what items to display if menu <a> is 'uncovered' by menu <b> being detached
+        last_loaded[]: Item
+        container_path: string
         menu_id: int
     }
     (Menu)

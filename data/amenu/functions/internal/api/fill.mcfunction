@@ -1,6 +1,6 @@
 #> amenu:internal/api > fill
 #--------------------
-# -> target: {block:{x: int, y: int, z: int}} | {entity: string (selector)}
+# -> target: {x: int, y: int, z: int} | {UUID: uuid}
 # -> items: Item[]
 #--------------------
 # <- ...
@@ -18,7 +18,7 @@
 
 $data modify storage amenu:in fill set value $(in)
 
-execute if data storage amenu:in fill.target.block run function amenu:internal/impl/fill/block with storage amenu:in fill.target.block
+execute if data storage amenu:in fill.target.block run function amenu:internal/impl/fill/block with storage amenu:in fill.target
 execute if data storage amenu:in fill.target.entity run function amenu:internal/impl/fill/entity with storage amenu:in fill.target
 
 #resets

@@ -31,9 +31,7 @@ function amenu:internal/api/evaluate with storage amenu:var evaluate
 data modify storage amenu:var load.items set from storage amenu:out evaluate.result
 
 #target set
-execute if data storage amenu:in load.host.x run data modify storage amenu:in fill.in.target.block set from storage amenu:in load.host
-execute if data storage amenu:in load.host.UUID run function amenu:impl/menu/load/entity_target with storage amenu:in load.host
-
+data modify storage amenu:in fill.in.target set from storage amenu:in load.host
 data modify storage amenu:in fill.in.items set from storage amenu:var load.items
 execute store result score *load.success amenu_var run function amenu:internal/api/fill with storage amenu:in fill
 execute if score *load.success amenu_var matches 0 run return -4

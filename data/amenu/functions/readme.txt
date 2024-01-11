@@ -30,6 +30,10 @@ Host: {
 RootMenu: {
     fluid: bool
     internal: {
+        fluid_map?: {
+            from: byte
+            to: byte
+        }
         menu_id: int
     }
     (Menu)
@@ -66,3 +70,8 @@ what to do/how to implement stacking/fluid menus (i.e. multiple menus in a singl
 - menus should NOT be able to resize, the root menu slots define all submenu slots
 - on death/block broken, dropped 'menu items' should be detected and their item data should be replaced with their corresponding Slot's saved item (opposed to just killing them and summoning new items)
 - fliud menus will try to move out of the way if another menu would cover them
+
+-- TODO --
+- Implement stacking for 'api/load'
+- attach
+- detach

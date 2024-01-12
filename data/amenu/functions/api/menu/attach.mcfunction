@@ -10,6 +10,7 @@
 #> the NBT path that <host> uses to store their array of Items should be specified by <container_path>.
 #--------------------
 #- for example, <container_path> should be "Inventory" if the <host> is a player, and "Items" if the <host> is a chest block. (it should be clear what a host's container path is from the output of a '/data get')
+#- note that this function is relatively expensive; avoid unecessary calls.
 #--------------------
 
 $data modify storage amenu:in attach set value $(in)
@@ -19,11 +20,17 @@ data modify storage amenu:var attach.root set from storage amenu:in attach.menu
 execute store result storage amenu:var attach.root.internal.menu_id int 1 run scoreboard players get *max_menuid amenu_data
 data modify storage amenu:var attach.root.internal.container_path set from storage amenu:in attach.container_path
 
-#TODOHERE: initialize host if it does not already exist; update 'checked_containers'
+execute if data storage amenu:in attach.host.x run function amenu:impl/menu/attach/block_host with storage amenu:in attach
+execute if data storage amenu:in attach.host.UUID run function amenu:impl/menu/attach/entity_host with storage amenu:in attach
 
 data modify storage amenu:in load.in.host set from storage amenu:in attach.host
 data modify storage amenu:in load.in.menu_id set from storage amenu:var attach.root.internal.menu_id
 data modify storage amenu:in load.in.path set value []
-function amenu:api/menu/load with storage amenu:in load
+execute store result score *attach.load_return amenu_var run function amenu:api/menu/load with storage amenu:in load
 
-#perhaps store the value returned by 'load' and detach if failed, returning the same value
+#detaches the menu
+execute unless score *attach.load_return amenu_var matches 1 run function amenu:impl/menu/attach/failed
+
+scoreboard players reset *attach.load_return amenu_var
+data remove storage amenu:var attach
+data remove storage amenu:in attach

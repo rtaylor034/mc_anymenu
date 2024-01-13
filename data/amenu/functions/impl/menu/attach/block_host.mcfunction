@@ -3,12 +3,7 @@
 # @api
 #--------------------
 
-#cheugy-ish, probs not a big deal but can prob be optimized
-$execute unless data storage amenu:data active_hosts.blocks[$(host)] run data modify storage amenu:data active_hosts.blocks append value $(host)
+$execute store success score *attach.host_exists amenu_var run data modify storage amenu:var attach.existing_host set from storage amenu:data active_hosts.blocks[$(host)]
 
-data modify storage amenu:var attach.root.internal.index set value 0
-$execute store result storage amenu:var attach.root.internal.index int 1 if data storage amenu:data active_hosts.entities[$(host)].menus[]
-
-$data modify storage amenu:data active_hosts.blocks[$(host)].menus append from storage amenu:var attach.root
-
-$execute unless data storage amenu:data active_hosts.blocks[$(host)].internal.checked_containers[{path:$(container_path)}] run data modify storage amenu:data active_hosts.blocks[$(host)].internal.checked_containers[{path:$(container_path)}] append value {path:"$(container_path)"}
+execute if score *attach.host_exists amenu_var matches 1 run function amenu:impl/menu/attach/update_block with storage amenu:in attach
+execute if score *attach.host_exists amenu_var matches 0 run function amenu:impl/menu/attach/new_block with storage amenu:in attach

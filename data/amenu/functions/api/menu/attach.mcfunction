@@ -23,6 +23,8 @@ data modify storage amenu:var attach.root.internal.container_path set from stora
 execute if data storage amenu:in attach.host.x run function amenu:impl/menu/attach/block_host with storage amenu:in attach
 execute if data storage amenu:in attach.host.UUID run function amenu:impl/menu/attach/entity_host with storage amenu:in attach
 
+data modify storage amenu:var attach.root.internal.index set value 0
+
 data modify storage amenu:in load.in.host set from storage amenu:in attach.host
 data modify storage amenu:in load.in.menu_id set from storage amenu:var attach.root.internal.menu_id
 data modify storage amenu:in load.in.path set value []
@@ -32,5 +34,6 @@ execute store result score *attach.load_return amenu_var run function amenu:api/
 execute unless score *attach.load_return amenu_var matches 1 run function amenu:impl/menu/attach/failed
 
 scoreboard players reset *attach.load_return amenu_var
+scoreboard players reset *attach.host_exists amenu_var
 data remove storage amenu:var attach
 data remove storage amenu:in attach

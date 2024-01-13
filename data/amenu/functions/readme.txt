@@ -7,6 +7,9 @@ amenu:data {
     active_hosts: {
         entities[]: {
             UUID: uuid
+            internal: {
+                guuid: guuid
+            }
             (Host)
         }
         blocks[]: {

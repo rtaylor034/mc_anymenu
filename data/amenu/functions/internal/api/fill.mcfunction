@@ -14,14 +14,14 @@
 # 0 - container does not have the slots to support <items>, failure.
 # 1 - success
 #--------------------
-#~ could technically *slightly* more efficient if <target> followed the same format as amenu:api/menu/load's, but this way its mOrE DYnaMiC
-#--------------------
 
 #TODO: now with multiple container paths possible, do the player-other container implementation split, and hardcode the differentiation between "Inventory" and "EnderItems" for players.
 $data modify storage amenu:in fill set value $(in)
 
-execute if data storage amenu:in fill.target.block run function amenu:internal/impl/fill/block with storage amenu:in fill.target
-execute if data storage amenu:in fill.target.entity run function amenu:internal/impl/fill/entity with storage amenu:in fill.target
+data modify storage amenu:var fill.macros set from storage amenu:in fill
+data modify storage amenu:var fill.macros merge from storage amenu:in fill.target
+execute if data storage amenu:in fill.target.x run function amenu:internal/impl/fill/block with storage amenu:var fill.macros
+execute if data storage amenu:in fill.target.guuid run function amenu:internal/impl/fill/entity with storage amenu:var fill.macros
 
 #resets
 data remove storage amenu:in fill

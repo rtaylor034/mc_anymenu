@@ -9,7 +9,6 @@
 # -1 - <host> is not an active host or is invalid. 
 # -2 - <path> does not exist in the given menu.
 # -3 - <menu_id> is invalid.
-# -4 - container specified by <identifier> does not have the slots to support the specified menu.
 #--------------------
 #> loads and displays the menu at the given <path> (and <menu_id>) with <payload> on an active <host>
 #> IMPORTANT - Menus with items that have duplicate or missing "Slot" keys may cause undefined behavior when loaded.

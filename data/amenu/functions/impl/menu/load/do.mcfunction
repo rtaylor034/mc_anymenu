@@ -42,8 +42,7 @@ data modify storage gssen:in repeat.in.with set value "amenu:var load.this_menu"
 execute store result storage gssen:in repeat.in.n int 1 if data storage amenu:var load.this_host.menus[]
 function gssen:api/inline/repeat with storage gssen:in repeat
 
-execute store result score *load.success amenu_var run function amenu:internal/api/fill with storage amenu:in fill
-execute unless score *load.success amenu_var matches 1 run return -4
+function amenu:internal/api/fill with storage amenu:in fill
 
 $execute if data storage amenu:in load.host.UUID run data modify storage amenu:data active_hosts.entities[$(host)].menus[{menu_id:$(menu_id)}].internal.last_loaded set from storage amenu:var load.items
 

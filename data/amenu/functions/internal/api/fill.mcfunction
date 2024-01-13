@@ -15,7 +15,6 @@
 # 1 - success
 #--------------------
 
-#TODO: now with multiple container paths possible, do the player-other container implementation split, and hardcode the differentiation between "Inventory" and "EnderItems" for players.
 $data modify storage amenu:in fill set value $(in)
 
 data modify storage amenu:var fill.macros set from storage amenu:in fill
@@ -28,5 +27,3 @@ data remove storage amenu:in fill
 data remove storage amenu:var fill
 
 return run scoreboard players get *fill amenu_return
-
-#WAS HERE - refactor this so container paths are respected and supports guuid input

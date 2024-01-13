@@ -8,7 +8,7 @@
 #--------------------
 #> fills <target>'s <container_path> with <items> dynamically.
 #--------------------
-#- ...
+#- does not check for invalid slots
 #--------------------
 # ...
 #--------------------

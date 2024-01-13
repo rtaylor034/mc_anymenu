@@ -3,4 +3,4 @@
 # @api
 #--------------------
 
-$data modify block $(x) $(y) $(z) $(container_path) merge from storage amenu:in fill.items
+$data modify block $(x) $(y) $(z) $(container_path) append from storage amenu:in fill.items[]

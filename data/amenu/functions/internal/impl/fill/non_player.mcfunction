@@ -3,4 +3,4 @@
 # ./entity
 #--------------------
 
-$data modify entity @s $(container_path) merge from storage amenu:in fill.items
+$data modify entity @s $(container_path) append from storage amenu:in fill.items[]

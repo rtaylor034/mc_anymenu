@@ -33,6 +33,8 @@ RootMenu: {
         last_loaded[]: Item
         container_path: string
         menu_id: int
+        #-- just so loading doesnt have to manually 'index_of' for figuring out layers
+        index: int
     }
     (Menu)
 }

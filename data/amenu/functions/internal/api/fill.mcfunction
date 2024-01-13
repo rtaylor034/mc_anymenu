@@ -1,6 +1,6 @@
 #> amenu:internal/api > fill
 #--------------------
-# -> target: {x: int, y: int, z: int} | {UUID: uuid}
+# -> target: {x: int, y: int, z: int} | {guuid: guuid}
 # -> container_path: string
 # -> items: Item[]
 #--------------------
@@ -28,3 +28,5 @@ data remove storage amenu:in fill
 data remove storage amenu:var fill
 
 return run scoreboard players get *fill amenu_return
+
+#WAS HERE - refactor this so container paths are respected and supports guuid input

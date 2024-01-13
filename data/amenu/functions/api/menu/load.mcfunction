@@ -5,6 +5,8 @@
 # -> path: string[]
 # => payload: obj = {}
 #--------------------
+# ...
+#--------------------
 # 1 - success
 # -1 - <host> is not an active host or is invalid. 
 # -2 - <path> does not exist in the given menu.

@@ -6,13 +6,11 @@
 #--------------------
 # <- ...
 #--------------------
-#> fills <target>'s container with <items> dynamically.
-#> stores old items in <previous_items>
+#> fills <target>'s <container_path> with <items> dynamically.
 #--------------------
 #- ...
 #--------------------
-# 0 - container does not have the slots to support <items>, failure.
-# 1 - success
+# ...
 #--------------------
 
 $data modify storage amenu:in fill set value $(in)
@@ -25,5 +23,3 @@ execute if data storage amenu:in fill.target.guuid run function amenu:internal/i
 #resets
 data remove storage amenu:in fill
 data remove storage amenu:var fill
-
-return run scoreboard players get *fill amenu_return

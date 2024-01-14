@@ -36,7 +36,7 @@ execute if data storage amenu:in load.host.x run data modify storage amenu:in fi
 data modify storage amenu:in fill.in.items set from storage amenu:var load.items
 #slots that are shadowed by other active menus
 #affects {in -> fill.in.items}
-execute store result score *load.this_index amenu_var run data get storage amenu:var load.this_menu.index
+execute store result score *load.this_index amenu_var run data get storage amenu:var load.this_menu.internal.index
 data modify storage gssen:in repeat.in.function set value "amenu:impl/menu/load/rfill"
 data modify storage gssen:in repeat.in.with set value "amenu:var load.this_menu"
 execute store result storage gssen:in repeat.in.n int 1 if data storage amenu:var load.this_host.menus[]
@@ -44,8 +44,8 @@ function gssen:api/inline/repeat with storage gssen:in repeat
 
 function amenu:internal/api/fill with storage amenu:in fill
 
-$execute if data storage amenu:in load.host.UUID run data modify storage amenu:data active_hosts.entities[$(host)].menus[{menu_id:$(menu_id)}].internal.last_loaded set from storage amenu:var load.items
+$execute if data storage amenu:in load.host.UUID run data modify storage amenu:data active_hosts.entities[$(host)].menus[{internal:{menu_id:$(menu_id)}}].internal.last_loaded set from storage amenu:var load.items
 
-$execute if data storage amenu:in load.host.x run data modify storage amenu:data active_hosts.blocks[$(host)].menus[{menu_id:$(menu_id)}].internal.last_loaded set from storage amenu:var load.items
+$execute if data storage amenu:in load.host.x run data modify storage amenu:data active_hosts.blocks[$(host)].menus[{internal:{menu_id:$(menu_id)}}].internal.last_loaded set from storage amenu:var load.items
 
 return 1

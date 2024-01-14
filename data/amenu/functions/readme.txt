@@ -38,6 +38,10 @@ RootMenu: {
         menu_id: int
         #-- just so loading doesnt have to manually 'index_of' for figuring out layers
         index: int
+        shadowed_slots[]: {
+            from: MenuId
+            slot: byte
+        }
     }
     (Menu)
 }

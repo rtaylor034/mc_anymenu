@@ -11,3 +11,4 @@ function amenu:settings
 #declare storage amenu:data
 scoreboard objectives add amenu_var dummy
 scoreboard objectives add amenu_return dummy
+scoreboard objectives add amenu_data dummy

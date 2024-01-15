@@ -8,6 +8,7 @@ $execute unless data storage amenu:var detach.this_host run data modify storage 
 execute unless data storage amenu:var detach.this_host run return 0
 
 $data modify storage amenu:var detach.this_menu set from storage amenu:var detach.this_host.menus[{internal:{menu_id:$(menu_id)}}]
+data modify storage amenu:var detach.menu_id set from storage amenu:in detach.menu_id
 
 data modify storage gssen:in difference.in.a set from storage amenu:var detach.this_menu.internal.shadowed_slots
 data modify storage gssen:in difference.in.b set from storage amenu:var detach.this_menu.items
@@ -23,14 +24,20 @@ data modify storage gssen:in repeat.in.function set value "amenu:impl/menu/detac
 execute store result storage gssen:in repeat.in.n int 1 run scoreboard players get *detach.this_index amenu_var
 function gssen:api/inline/repeat with storage gssen:in repeat
 
-data modify storage amenu:in fill.in.items append from storage amenu:var detach.items[]
-execute if data storage amenu:in detach.host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var detach.this_host.internal.guuid
-execute if data storage amenu:in detach.host.x run data modify storage amenu:in fill.in.target set from storage amenu:var detach.this_host
+#saved slots
+#affects {in -> fill.in.items} & {var -> detach.this_host}
+data modify storage gssen:in repeat.in.function set value "amenu:impl/detach/saved"
+data modify storage gssen:in repeat.in.with set value "my:storage path"
+execute store result storage gssen:in repeat.in.n int 1 if data storage amenu:var detach.items[]
+function gssen:api/inline/repeat with storage gssen:in repeat
+
+data modify storage amenu:in fill.in.items append from storage gssen:out intersection.shared_b[]
+execute if data storage amenu:var detach.this_host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var detach.this_host.internal.guuid
+execute if data storage amenu:var detach.this_host.x run data modify storage amenu:in fill.in.target set from storage amenu:var detach.this_host
 function amenu:internal/api/fill with storage amenu:in fill
 
 data modify storage amenu:out detach.host set from storage amenu:var detach.this_host
 
-data modify storage amenu:var detach.menu_id set from storage amenu:in detach.menu_id
 execute if data storage amenu:var detach.this_host.x run data merge storage amenu:var {detach:{host_pool:"blocks"}}
 execute if data storage amenu:var detach.this_host.UUID run data merge storage amenu:var {detach:{host_pool:"entities"}}
 

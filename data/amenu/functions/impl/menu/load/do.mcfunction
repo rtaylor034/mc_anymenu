@@ -30,20 +30,23 @@ data modify storage amenu:in evaluate.in.items set from storage amenu:var load.t
 function amenu:internal/api/evaluate with storage amenu:var evaluate
 data modify storage amenu:var load.items set from storage amenu:out evaluate.result
 
-data modify storage amenu:in fill.in.items set from storage amenu:var load.items
-data modify storage amenu:in fill.in.target set from storage amenu:in load.host
+#shadowed slots
+data modify storage gssen:in ensure.in.array set from storage amenu:var load.this_menu.internal.shadowed_slots
+data modify storage gssen:in ensure.in.compare.only set value ["Slot"]
+function gssen:api/array/set/ensure with storage gssen:in ensure
 
-#exclude slots that are behind other menus
-#affects {var -> fill.in.items}
-execute store result score *load.this_index amenu_var run data get storage amenu:var load.this_menu.index
-data modify storage gssen:in repeat.in.function set value "amenu:impl/menu/load/rfill"
-data modify storage gssen:in repeat.in.with set value "amenu:var load.this_menu"
-execute store result storage gssen:in repeat.in.n int 1 if data storage amenu:var load.this_host.menus[]
-function gssen:api/inline/repeat with storage gssen:in repeat
+data modify storage gssen:in difference.in.a set from storage gssen:out ensure.result
+data modify storage gssen:in difference.in.b set from storage amenu:var load.items
+data modify storage gssen:in difference.in.compare.only set value ["Slot"]
+function gssen:api/array/set/difference with storage gssen:in difference
 
-execute store result score *load.success amenu_var run function amenu:internal/api/fill with storage amenu:in fill
-execute unless score *load.success amenu_var matches 1 run return -4
+execute if data storage amenu:in load.host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var load.this_host.internal.guuid
+execute if data storage amenu:in load.host.x run data modify storage amenu:in fill.in.target set from storage amenu:in load.host
+data modify storage amenu:in fill.in.items set from storage gssen:out difference.unique_b
+function amenu:internal/api/fill with storage amenu:in fill
 
-$execute if data storage amenu:in load.host.UUID run data modify storage amenu:data active_hosts.entities[$(host)].menus[{menu_id:$(menu_id)}].internal.last_loaded set from storage amenu:var load.items
+$execute if data storage amenu:in load.host.UUID run data modify storage amenu:data active_hosts.entities[$(host)].menus[{internal:{menu_id:$(menu_id)}}].internal.last_loaded set from storage amenu:var load.items
 
-$execute if data storage amenu:in load.host.x run data modify storage amenu:data active_hosts.blocks[$(host)].menus[{menu_id:$(menu_id)}].internal.last_loaded set from storage amenu:var load.items
+$execute if data storage amenu:in load.host.x run data modify storage amenu:data active_hosts.blocks[$(host)].menus[{internal:{menu_id:$(menu_id)}}].internal.last_loaded set from storage amenu:var load.items
+
+return 1

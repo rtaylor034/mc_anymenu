@@ -1,4 +1,4 @@
-#> amenu:api > host/attach
+#> amenu:api > menu/attach
 #--------------------
 # -> host: {x: int, y: int, z: int} | {UUID: uuid}
 # -> container_path: string
@@ -8,9 +8,11 @@
 #--------------------
 #> activates <menu> on the block or entity specified by <host>.
 #> the NBT path that <host> uses to store their array of Items should be specified by <container_path>.
+#> generates and returns the attached <menu>'s >menu_id<.
 #--------------------
-#- for example, <container_path> should be "Inventory" if the <host> is a player, and "Items" if the <host> is a chest block. (it should be clear what a host's container path is from the output of a '/data get')
-#- note that this function is relatively expensive; avoid unecessary calls.
+#- it is necessary to store >menu_id< for later use with amenu:api/menu/detach.
+#- ex <container_path>: "Inventory" if the <host> is a player, or "Items" if the <host> is a chest block. (it should be clear what a host's container path can be from the output of a '/data get')
+#- this function is relatively expensive; avoid unecessary calls.
 #--------------------
 
 $data modify storage amenu:in attach set value $(in)

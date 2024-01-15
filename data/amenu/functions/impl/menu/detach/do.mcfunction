@@ -27,7 +27,6 @@ function gssen:api/inline/repeat with storage gssen:in repeat
 #saved slots
 #affects {in -> fill.in.items} & {var -> detach.this_host}
 data modify storage gssen:in repeat.in.function set value "amenu:impl/detach/saved"
-data modify storage gssen:in repeat.in.with set value "my:storage path"
 execute store result storage gssen:in repeat.in.n int 1 if data storage amenu:var detach.items[]
 function gssen:api/inline/repeat with storage gssen:in repeat
 

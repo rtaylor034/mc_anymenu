@@ -7,7 +7,7 @@
 execute if data storage amenu:in load.host.UUID run data modify storage amenu:var load.host_pool set from storage amenu:data active_hosts.entities
 execute if data storage amenu:in load.host.x run data modify storage amenu:var load.host_pool set from storage amenu:data active_hosts.blocks
 
-$data modify storage amenu:var load.this_host set from storage amenu:var load.host_pool[$(host)]
+$data modify storage amenu:var load.this_host set from storage amenu:var load.host_pool[{menus:[{internal:{menu_id:$(menu_id)}}]}]
 execute unless data storage amenu:var load.this_host run return -1
 
 $data modify storage amenu:var load.this_menu set from storage amenu:var load.this_host.menus[{internal:{menu_id:$(menu_id)}}]
@@ -45,8 +45,8 @@ execute if data storage amenu:in load.host.x run data modify storage amenu:in fi
 data modify storage amenu:in fill.in.items set from storage gssen:out difference.unique_b
 function amenu:internal/api/fill with storage amenu:in fill
 
-$execute if data storage amenu:in load.host.UUID run data modify storage amenu:data active_hosts.entities[$(host)].menus[{internal:{menu_id:$(menu_id)}}].internal.last_loaded set from storage amenu:var load.items
+data modify storage amenu:var load.menu_id set from storage amenu:var load.this_menu.internal.menu_id
 
-$execute if data storage amenu:in load.host.x run data modify storage amenu:data active_hosts.blocks[$(host)].menus[{internal:{menu_id:$(menu_id)}}].internal.last_loaded set from storage amenu:var load.items
+function amenu:impl/menu/load/setdata with storage amenu:var load
 
 return 1

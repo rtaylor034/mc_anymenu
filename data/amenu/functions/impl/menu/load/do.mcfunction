@@ -3,11 +3,8 @@
 # - @api
 #--------------------
 
-#kinda cheugy but not a huge deal
-execute if data storage amenu:in load.host.UUID run data modify storage amenu:var load.host_pool set from storage amenu:data active_hosts.entities
-execute if data storage amenu:in load.host.x run data modify storage amenu:var load.host_pool set from storage amenu:data active_hosts.blocks
-
-$data modify storage amenu:var load.this_host set from storage amenu:var load.host_pool[$(host)]
+$data modify storage amenu:var load.this_host set from storage amenu:data active_hosts.entities[{menus:[{internal:{menu_id:$(menu_id)}}]}]
+$execute unless data storage amenu:var load.this_host run data modify storage amenu:var load.this_host set from storage amenu:data active_hosts.blocks[{menus:[{internal:{menu_id:$(menu_id)}}]}]
 execute unless data storage amenu:var load.this_host run return -1
 
 $data modify storage amenu:var load.this_menu set from storage amenu:var load.this_host.menus[{internal:{menu_id:$(menu_id)}}]
@@ -40,13 +37,9 @@ data modify storage gssen:in difference.in.b set from storage amenu:var load.ite
 data modify storage gssen:in difference.in.compare.only set value ["Slot"]
 function gssen:api/array/set/difference with storage gssen:in difference
 
-execute if data storage amenu:in load.host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var load.this_host.internal.guuid
-execute if data storage amenu:in load.host.x run data modify storage amenu:in fill.in.target set from storage amenu:in load.host
+execute if data storage amenu:var load.this_host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var load.this_host.internal.guuid
+execute if data storage amenu:var load.this_host.x run data modify storage amenu:in fill.in.target set from storage amenu:var load.this_host
 data modify storage amenu:in fill.in.items set from storage gssen:out difference.unique_b
 function amenu:internal/api/fill with storage amenu:in fill
-
-$execute if data storage amenu:in load.host.UUID run data modify storage amenu:data active_hosts.entities[$(host)].menus[{internal:{menu_id:$(menu_id)}}].internal.last_loaded set from storage amenu:var load.items
-
-$execute if data storage amenu:in load.host.x run data modify storage amenu:data active_hosts.blocks[$(host)].menus[{internal:{menu_id:$(menu_id)}}].internal.last_loaded set from storage amenu:var load.items
 
 return 1

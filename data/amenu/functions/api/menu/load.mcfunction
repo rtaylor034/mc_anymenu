@@ -1,6 +1,5 @@
 #> amenu:api > menu/load
 #--------------------
-# -> host: {UUID: uuid} | {x: int, y: int, z: int}
 # -> menu_id: MenuId
 # -> path: string[]
 # => payload: obj = {}

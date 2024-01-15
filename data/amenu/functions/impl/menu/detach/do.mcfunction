@@ -3,17 +3,14 @@
 # @api
 #--------------------
 
-execute if data storage amenu:in detach.host.UUID run data modify storage amenu:var detach.host_pool set from storage amenu:data active_hosts.entities
-execute if data storage amenu:in detach.host.x run data modify storage amenu:var detach.host_pool set from storage amenu:data active_hosts.blocks
-
-$data modify storage amenu:var detach.this_host set from storage amenu:var load.host_pool[$(host)]
-execute unless data storage amenu:var detach.this_host run return -1
+$data modify storage amenu:var detach.this_host set from storage amenu:data active_hosts.entities[{menus:[{internal:{menu_id:$(menu_id)}}]}]
+$execute unless data storage amenu:var detach.this_host run data modify storage amenu:var detach.this_host set from storage amenu:data active_hosts.blocks[{menus:[{internal:{menu_id:$(menu_id)}}]}]
+execute unless data storage amenu:var detach.this_host run return 0
 
 $data modify storage amenu:var detach.this_menu set from storage amenu:var detach.this_host.menus[{internal:{menu_id:$(menu_id)}}]
-execute unless data storage amenu:var detach.this_menu run return -2
 
-data modify storage gssen:in difference.in.a merge from storage amenu:var detach.this_menu.internal.shadowed_slots
-data modify storage gssen:in difference.in.b merge from storage amenu:var detach.this_menu.items
+data modify storage gssen:in difference.in.a set from storage amenu:var detach.this_menu.internal.shadowed_slots
+data modify storage gssen:in difference.in.b set from storage amenu:var detach.this_menu.items
 data modify storage gssen:in difference.in.compare.only set value ["Slot"]
 function gssen:api/array/set/difference with storage gssen:in difference
 
@@ -30,3 +27,17 @@ data modify storage amenu:in fill.in.items append from storage amenu:var detach.
 execute if data storage amenu:in detach.host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var detach.this_host.internal.guuid
 execute if data storage amenu:in detach.host.x run data modify storage amenu:in fill.in.target set from storage amenu:var detach.this_host
 function amenu:internal/api/fill with storage amenu:in fill
+
+data modify storage amenu:out detach.host set from storage amenu:var detach.this_host
+
+data modify storage amenu:var detach.menu_id set from storage amenu:in detach.menu_id
+execute if data storage amenu:var detach.this_host.x run data merge storage amenu:var {detach:{host_pool:"blocks"}}
+execute if data storage amenu:var detach.this_host.UUID run data merge storage amenu:var {detach:{host_pool:"entities"}}
+
+execute store result score *detach.menu_count amenu_var if data storage amenu:var detach.this_host.menus[]
+
+execute unless score *detach.menu_count amenu_var matches ..1 run return run function amenu:impl/menu/detach/remove_host with storage amenu:var detach
+
+function amenu:impl/menu/detach/remove_menu with storage amenu:var detach
+
+return 1

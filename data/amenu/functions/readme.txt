@@ -91,6 +91,12 @@ ItemNbt: {
 ^ menus attached last are always on top
 ^ menus should NOT be able to resize, the root menu slots define all submenu slots
 - on death/block broken, dropped 'menu items' should be detected and their item data should be replaced with their corresponding Slot's saved item (opposed to just killing them and summoning new items)
+- consider refactoring entity/block host recognition so its just:
+Host: {
+    identifier: {UUID: uuid} | {x: int, y:int, z:int}
+}
+and active_hosts is just 1 array.
+
 
 -- TODO --
 

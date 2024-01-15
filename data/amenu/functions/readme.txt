@@ -48,16 +48,16 @@ RootMenu: {
 
 Menu: {
     #-- provided $(payload: any) $(menu_id: MenuId)
-    on_load[]: string
+    on_load[]? string
     #-- provided $(interaction: InteractData) $(menu_id: MenuId)
-    on_real_interact[]: string
+    on_real_interact[]? string
     items[]: MenuItem
     sub_menus: {
         <ident...>? Menu
     }
 }
 
-InteractData {
+InteractData: {
     removed[]: Item
     added[]: Item
 }

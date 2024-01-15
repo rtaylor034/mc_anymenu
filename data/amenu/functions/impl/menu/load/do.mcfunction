@@ -18,6 +18,7 @@ execute if score *load.success amenu_var matches 0 run return -2
 data modify storage amenu:var load.to_menu set from storage amenu:out traverse_path.result
 
 #call 'on_load' functions
+data modify storage amenu:var load.on_load.menu_id set from storage amenu:in load.menu_id
 execute store result storage gssen:in repeat.in.n int 1 if data storage amenu:var load.to_menu.on_load[]
 data modify storage gssen:in repeat.in.function set value "amenu:internal/impl/menu/load/call_load"
 function gssen:api/inline/repeat with storage gssen:in repeat

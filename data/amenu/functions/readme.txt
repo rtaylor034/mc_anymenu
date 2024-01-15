@@ -47,13 +47,20 @@ RootMenu: {
 }
 
 Menu: {
+    #-- provided $(payload: any) $(menu_id: MenuId)
     on_load[]: string
+    #-- provided $(interaction: InteractData) $(menu_id: MenuId)
+    on_real_interact[]: string
     items[]: MenuItem
     sub_menus: {
         <ident...>? Menu
     }
 }
 
+InteractData {
+    removed[]: Item
+    added[]: Item
+}
 MenuItem: {
     item: Item
     source? {
@@ -66,22 +73,26 @@ Item: {
     id: string
     Count: byte
     Slot: byte
-    tag: ITEM NBT
+    tag: ItemNbt
+}
+
+ItemNbt: {
+    amenu? {
+        path[]: string
+        payload? any
+    }
+    (ANY)
 }
 
 -- WHERE IM AT --
-what to do/how to implement stacking/fluid menus (i.e. multiple menus in a single host that would overlap)
+- testing load/attach/detach
 
 -- THOUGHTS --
-- by default the menu last loaded should stack on-top of other menus
-- menus should NOT be able to resize, the root menu slots define all submenu slots
+^ menus attached last are always on top
+^ menus should NOT be able to resize, the root menu slots define all submenu slots
 - on death/block broken, dropped 'menu items' should be detected and their item data should be replaced with their corresponding Slot's saved item (opposed to just killing them and summoning new items)
-- fliud menus will try to move out of the way if another menu would cover them
 
 -- TODO --
-- Implement stacking for 'api/load'
-- attach
-- detach
 
 -- SHOULDS --
-- anymenu's 'tick' should be before all dependent packs. (this primarily so menu items dropped on death can be killed before being detected)
+- anymenu's 'tick' should be before all dependent packs. (this primarily so menu items dropped on death can be killed before being detected)p

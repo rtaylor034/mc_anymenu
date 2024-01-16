@@ -26,13 +26,14 @@ function gssen:api/inline/repeat with storage gssen:in repeat
 
 #saved slots
 #affects {in -> fill.in.items} & {var -> detach.this_host}
-data modify storage gssen:in repeat.in.function set value "amenu:impl/detach/saved"
+data modify storage gssen:in repeat.in.function set value "amenu:impl/menu/detach/saved"
 execute store result storage gssen:in repeat.in.n int 1 if data storage amenu:var detach.items[]
 function gssen:api/inline/repeat with storage gssen:in repeat
 
-data modify storage amenu:in fill.in.items append from storage gssen:out intersection.shared_b[]
 execute if data storage amenu:var detach.this_host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var detach.this_host.internal.guuid
 execute if data storage amenu:var detach.this_host.x run data modify storage amenu:in fill.in.target set from storage amenu:var detach.this_host
+data modify storage amenu:in fill.in.container_path set from storage amenu:var detach.this_menu.internal.container_path
+
 function amenu:internal/api/fill with storage amenu:in fill
 
 data modify storage amenu:out detach.host set from storage amenu:var detach.this_host

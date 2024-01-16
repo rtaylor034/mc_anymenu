@@ -62,7 +62,10 @@ InteractData: {
     added[]: Item
 }
 MenuItem: {
-    item: Item
+    item: {
+        Slot: byte
+        (Item?)
+    }
     source? {
         storage: string
         path: string
@@ -73,7 +76,7 @@ Item: {
     id: string
     Count: byte
     Slot: byte
-    tag: ItemNbt
+    tag? ItemNbt
 }
 
 ItemNbt: {

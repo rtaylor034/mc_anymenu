@@ -22,12 +22,12 @@ data modify storage amenu:var attach.root set from storage amenu:in attach.menu
 execute store result storage amenu:var attach.root.internal.menu_id int 1 run scoreboard players get *max_menuid amenu_data
 data modify storage amenu:var attach.root.internal.container_path set from storage amenu:in attach.container_path
 
+data modify storage amenu:var attach.root.internal.index set value 0
+
 execute if data storage amenu:in attach.host.x run function amenu:impl/menu/attach/block_host with storage amenu:in attach
 execute if data storage amenu:in attach.host.UUID run function amenu:impl/menu/attach/entity_host with storage amenu:in attach
 
-data modify storage amenu:var attach.root.internal.index set value 0
 
-data modify storage amenu:in load.in.host set from storage amenu:in attach.host
 data modify storage amenu:in load.in.menu_id set from storage amenu:var attach.root.internal.menu_id
 data modify storage amenu:in load.in.path set value []
 execute store result score *attach.load_return amenu_var run function amenu:api/menu/load with storage amenu:in load

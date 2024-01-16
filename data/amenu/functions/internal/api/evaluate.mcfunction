@@ -1,12 +1,10 @@
 #> amenu:internal/api > evaluate
 #--------------------
 # -> items: MenuItem[]
-# => strict: bool = false
 #--------------------
 # <- result: Item[]
 #--------------------
 #> evaluates <items> to real Items
-#> if <strict> is true, function will fail if not all <items> have an 'item.Slot' tag BEFORE evaluation.
 #--------------------
 #- ...
 #--------------------
@@ -16,7 +14,6 @@
 
 $data modify storage amenu:in evaluate set value $(in)
 data modify storage amenu:out evaluate.result set value []
-execute store result score *evaluate.strict amenu_var run data get storage amenu:in evaluate.strict
 
 execute store result score *evaluate.count amenu_var if data storage amenu:in evaluate.items[]
 data modify storage gssen:in repeat.in.function set value "amenu:internal/impl/evaluate/iter"

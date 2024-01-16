@@ -13,7 +13,7 @@ execute unless data storage amenu:var load.this_menu run return -3
 data modify storage amenu:in traverse_path.in.path set from storage amenu:in load.path
 data modify storage amenu:in traverse_path.in.menu set from storage amenu:var load.this_menu
 execute store result score *load.success amenu_var run function amenu:internal/api/traverse_path with storage amenu:in traverse_path
-execute if score *load.success amenu_var matches 0 run return -2
+execute unless score *load.success amenu_var matches 1 run return -2
 
 data modify storage amenu:var load.to_menu set from storage amenu:out traverse_path.result
 
@@ -25,7 +25,8 @@ function gssen:api/inline/repeat with storage gssen:in repeat
 
 #evaluate items
 data modify storage amenu:in evaluate.in.items set from storage amenu:var load.to_menu.items
-function amenu:internal/api/evaluate with storage amenu:var evaluate
+execute store result score *load.success amenu_var run function amenu:internal/api/evaluate with storage amenu:var evaluate
+execute unless score *load.success amenu_var matches 1 run return -4
 data modify storage amenu:var load.items set from storage amenu:out evaluate.result
 
 #shadowed slots

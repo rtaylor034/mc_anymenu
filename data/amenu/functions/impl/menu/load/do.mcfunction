@@ -47,6 +47,7 @@ function gssen:api/array/set/difference with storage gssen:in difference
 execute if data storage amenu:var load.this_host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var load.this_host.internal.guuid
 execute if data storage amenu:var load.this_host.x run data modify storage amenu:in fill.in.target set from storage amenu:var load.this_host
 data modify storage amenu:in fill.in.items set from storage gssen:out difference.unique_b
+data modify storage amenu:in fill.in.container_path set from storage amenu:var load.this_menu.internal.container_path
 function amenu:internal/api/fill with storage amenu:in fill
 
 return 1

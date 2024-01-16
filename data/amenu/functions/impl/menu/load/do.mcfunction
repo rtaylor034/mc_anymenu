@@ -29,6 +29,11 @@ execute store result score *load.success amenu_var run function amenu:internal/a
 execute unless score *load.success amenu_var matches 1 run return -4
 data modify storage amenu:var load.items set from storage amenu:out evaluate.result
 
+execute if data storage amenu:var load.this_host.UUID run data merge storage amenu:var {load:{host_pool:"entities"}}
+execute if data storage amenu:var load.this_host.x run data merge storage amenu:var {load:{host_pool:"blocks"}}
+data modify storage amenu:var load.menu_id set from storage amenu:in load.menu_id
+function amenu:impl/menu/load/do.1 with storage amenu:var load
+
 #shadowed slots
 data modify storage gssen:in ensure.in.array set from storage amenu:var load.this_menu.internal.shadowed_slots
 data modify storage gssen:in ensure.in.compare.only set value ["Slot"]

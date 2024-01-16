@@ -14,6 +14,8 @@
 #- ex <container_path>: "Inventory" if the <host> is a player, or "Items" if the <host> is a chest block. (it should be clear what a host's container path can be from the output of a '/data get')
 #- this function is relatively expensive; avoid unecessary calls.
 #--------------------
+# ...
+#--------------------
 
 $data modify storage amenu:in attach set value $(in)
 

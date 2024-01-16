@@ -33,7 +33,6 @@ function gssen:api/inline/repeat with storage gssen:in repeat
 execute if data storage amenu:var detach.this_host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var detach.this_host.internal.guuid
 execute if data storage amenu:var detach.this_host.x run data modify storage amenu:in fill.in.target set from storage amenu:var detach.this_host
 data modify storage amenu:in fill.in.container_path set from storage amenu:var detach.this_menu.internal.container_path
-
 function amenu:internal/api/fill with storage amenu:in fill
 
 data modify storage amenu:out detach.host set from storage amenu:var detach.this_host
@@ -43,7 +42,7 @@ execute if data storage amenu:var detach.this_host.UUID run data merge storage a
 
 execute store result score *detach.menu_count amenu_var if data storage amenu:var detach.this_host.menus[]
 
-execute unless score *detach.menu_count amenu_var matches ..1 run return run function amenu:impl/menu/detach/remove_host with storage amenu:var detach
+execute if score *detach.menu_count amenu_var matches ..1 run return run function amenu:impl/menu/detach/remove_host with storage amenu:var detach
 
 function amenu:impl/menu/detach/remove_menu with storage amenu:var detach
 

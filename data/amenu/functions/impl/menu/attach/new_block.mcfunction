@@ -10,11 +10,11 @@ data modify storage amenu:var attach.new_host.y set from storage amenu:in attach
 data modify storage amenu:var attach.new_host.z set from storage amenu:in attach.host.z
 
 data modify storage amenu:var attach.new_host.menus append from storage amenu:var attach.root
-data modify storage amenu:var attach.new_host.internal.checked_containers[0] set from storage amenu:in attach.container_path
+data modify storage amenu:var attach.new_host.internal.checked_containers[0].path set from storage amenu:in attach.container_path
 
 #save items
 data modify storage gssen:in intersection.in.a append from storage amenu:var attach.root.items[].item
-data modify storage amenu:var attach.macro merge from storage amenu:in attach
+data modify storage amenu:var attach.macro set from storage amenu:in attach
 data modify storage amenu:var attach.macro merge from storage amenu:in attach.host
 #affects {gssen:in -> intersection.in.b}
 function amenu:impl/menu/attach/new_block.1 with storage amenu:var attach.macro

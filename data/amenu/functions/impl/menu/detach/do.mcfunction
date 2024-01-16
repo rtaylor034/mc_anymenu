@@ -11,7 +11,7 @@ $data modify storage amenu:var detach.this_menu set from storage amenu:var detac
 data modify storage amenu:var detach.menu_id set from storage amenu:in detach.menu_id
 
 data modify storage gssen:in difference.in.a set from storage amenu:var detach.this_menu.internal.shadowed_slots
-data modify storage gssen:in difference.in.b set from storage amenu:var detach.this_menu.items
+data modify storage gssen:in difference.in.b append from storage amenu:var detach.this_menu.items[].item
 data modify storage gssen:in difference.in.compare.only set value ["Slot"]
 function gssen:api/array/set/difference with storage gssen:in difference
 

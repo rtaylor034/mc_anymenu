@@ -25,7 +25,7 @@ function gssen:api/inline/repeat with storage gssen:in repeat
 
 #evaluate items
 data modify storage amenu:in evaluate.in.items set from storage amenu:var load.to_menu.items
-execute store result score *load.success amenu_var run function amenu:internal/api/evaluate with storage amenu:var evaluate
+execute store result score *load.success amenu_var run function amenu:internal/api/evaluate with storage amenu:in evaluate
 execute unless score *load.success amenu_var matches 1 run return -4
 data modify storage amenu:var load.items set from storage amenu:out evaluate.result
 

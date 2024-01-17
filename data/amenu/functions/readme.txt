@@ -106,12 +106,11 @@ Host: {
 }
 and active_hosts is just 1 array.
 
-
-
 -- TODO --
 - make saved_items save air (so that its filled back to air on detach)
 - update 'checked_containers' on detach
 - continue testing 'attach' (update_ methods, layers, block)
+! attach 'update_' does not correctly set saved items
 
 
 -- SHOULDS --

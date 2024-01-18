@@ -95,7 +95,7 @@ ItemNbt: {
 
 -- WHERE IM AT --
 - testing load/attach/detach
-  - testing the new saved_items 'air' on block, need to implement air saving on 'update_' methods
+! update 'checked_containers' on detach
 
 -- THOUGHTS --
 ^ menus attached last are always on top
@@ -108,8 +108,9 @@ Host: {
 and active_hosts is just 1 array.
 
 -- TODO --
-- make saved_items save air (so that its filled back to air on detach)
-- update 'checked_containers' on detach
+- test overlapping
+! bug with applying menu items 'tag' to saved items. probably a 'merge' instead of set somewhere it shouldnt be
+
 - continue testing 'attach' (update_ methods, layers, block)
 
 -- SHOULDS --

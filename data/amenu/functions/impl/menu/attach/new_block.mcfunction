@@ -21,6 +21,12 @@ function amenu:impl/menu/attach/new_block.1 with storage amenu:var attach.macro
 data modify storage gssen:in intersection.in.compare.only set value ["Slot"]
 function gssen:api/array/set/intersection with storage gssen:in intersection
 
-data modify storage amenu:var attach.new_host.internal.saved_items set from storage gssen:out intersection.shared_b
+data modify storage amenu:in default.in.slots append from storage amenu:var attach.root.items[].item
+data modify storage amenu:in default.in.items set from storage gssen:out intersection.shared_b
+data modify storage amenu:in default.in.item set value {id:"minecraft:air",Count:1b}
+function amenu:internal/api/items/default with storage amenu:in default
+
+data modify storage amenu:var attach.new_host.internal.saved_items set from storage amenu:out default.result
+
 
 data modify storage amenu:data active_hosts.blocks append from storage amenu:var attach.new_host

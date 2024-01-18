@@ -95,6 +95,7 @@ ItemNbt: {
 
 -- WHERE IM AT --
 - testing load/attach/detach
+  - testing the new saved_items 'air' on block, need to implement air saving on 'update_' methods
 
 -- THOUGHTS --
 ^ menus attached last are always on top

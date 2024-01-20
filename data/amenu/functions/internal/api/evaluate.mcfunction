@@ -26,7 +26,7 @@ execute store success score *evaluate amenu_return if score *evaluate.successes 
 
 data remove storage amenu:var evaluate
 data remove storage amenu:in evaluate
-scoreboard players reset *evaluate.strict amenu_var
+scoreboard players reset *evaluate.successes amenu_var
 scoreboard players reset *evaluate.count amenu_var
 
 return run scoreboard players get *evaluate amenu_return

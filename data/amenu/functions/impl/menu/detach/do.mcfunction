@@ -17,6 +17,7 @@ function gssen:api/array/set/difference with storage gssen:in difference
 
 data modify storage amenu:var detach.items set from storage gssen:out difference.unique_b
 
+execute store result score *detach.this_index amenu_var run data get storage amenu:var detach.this_menu.internal.index
 data merge storage amenu:in {fill:{in:{items:[]}}}
 #remaining slots (that may shadow other menus)
 #affects {in -> fill.in.items} & {var -> detach.items}
@@ -26,13 +27,13 @@ function gssen:api/inline/repeat with storage gssen:in repeat
 
 #saved slots
 #affects {in -> fill.in.items} & {var -> detach.this_host}
-data modify storage gssen:in repeat.in.function set value "amenu:impl/detach/saved"
+data modify storage gssen:in repeat.in.function set value "amenu:impl/menu/detach/saved"
 execute store result storage gssen:in repeat.in.n int 1 if data storage amenu:var detach.items[]
 function gssen:api/inline/repeat with storage gssen:in repeat
 
-data modify storage amenu:in fill.in.items append from storage gssen:out intersection.shared_b[]
 execute if data storage amenu:var detach.this_host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var detach.this_host.internal.guuid
 execute if data storage amenu:var detach.this_host.x run data modify storage amenu:in fill.in.target set from storage amenu:var detach.this_host
+data modify storage amenu:in fill.in.container_path set from storage amenu:var detach.this_menu.internal.container_path
 function amenu:internal/api/fill with storage amenu:in fill
 
 data modify storage amenu:out detach.host set from storage amenu:var detach.this_host
@@ -42,7 +43,7 @@ execute if data storage amenu:var detach.this_host.UUID run data merge storage a
 
 execute store result score *detach.menu_count amenu_var if data storage amenu:var detach.this_host.menus[]
 
-execute unless score *detach.menu_count amenu_var matches ..1 run return run function amenu:impl/menu/detach/remove_host with storage amenu:var detach
+execute if score *detach.menu_count amenu_var matches ..1 run return run function amenu:impl/menu/detach/remove_host with storage amenu:var detach
 
 function amenu:impl/menu/detach/remove_menu with storage amenu:var detach
 

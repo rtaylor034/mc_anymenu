@@ -1,5 +1,11 @@
 GENERAL USE INFO
 
+dependencies:
+- gssen
+
+supports:
+
+
 # EDGE CASES
 - handle active menu entity death (ensure safety of saved items)
 
@@ -100,8 +106,11 @@ Host: {
 }
 and active_hosts is just 1 array.
 
-
 -- TODO --
+- test overlapping
+! bug with applying menu items 'tag' to saved items. probably a 'merge' instead of set somewhere it shouldnt be
+
+- continue testing 'attach' (update_ methods, layers, block)
 
 -- SHOULDS --
-- anymenu's 'tick' should be before all dependent packs. (this primarily so menu items dropped on death can be killed before being detected)p
+- anymenu's 'tick' should be before all dependent packs. (this primarily so menu items dropped on death can be killed before being detected)

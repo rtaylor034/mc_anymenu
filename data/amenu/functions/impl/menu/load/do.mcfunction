@@ -25,9 +25,14 @@ function gssen:api/inline/repeat with storage gssen:in repeat
 
 #evaluate items
 data modify storage amenu:in evaluate.in.items set from storage amenu:var load.to_menu.items
-execute store result score *load.success amenu_var run function amenu:internal/api/evaluate with storage amenu:var evaluate
+execute store result score *load.success amenu_var run function amenu:internal/api/evaluate with storage amenu:in evaluate
 execute unless score *load.success amenu_var matches 1 run return -4
 data modify storage amenu:var load.items set from storage amenu:out evaluate.result
+
+execute if data storage amenu:var load.this_host.UUID run data merge storage amenu:var {load:{host_pool:"entities"}}
+execute if data storage amenu:var load.this_host.x run data merge storage amenu:var {load:{host_pool:"blocks"}}
+data modify storage amenu:var load.menu_id set from storage amenu:in load.menu_id
+function amenu:impl/menu/load/do.1 with storage amenu:var load
 
 #shadowed slots
 data modify storage gssen:in ensure.in.array set from storage amenu:var load.this_menu.internal.shadowed_slots
@@ -42,6 +47,7 @@ function gssen:api/array/set/difference with storage gssen:in difference
 execute if data storage amenu:var load.this_host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var load.this_host.internal.guuid
 execute if data storage amenu:var load.this_host.x run data modify storage amenu:in fill.in.target set from storage amenu:var load.this_host
 data modify storage amenu:in fill.in.items set from storage gssen:out difference.unique_b
+data modify storage amenu:in fill.in.container_path set from storage amenu:var load.this_menu.internal.container_path
 function amenu:internal/api/fill with storage amenu:in fill
 
 return 1

@@ -95,7 +95,6 @@ ItemNbt: {
 
 -- WHERE IM AT --
 - testing load/attach/detach
-! update 'checked_containers' on detach
 
 -- THOUGHTS --
 ^ menus attached last are always on top

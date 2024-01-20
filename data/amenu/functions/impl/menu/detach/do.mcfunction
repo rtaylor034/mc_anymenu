@@ -17,6 +17,7 @@ function gssen:api/array/set/difference with storage gssen:in difference
 
 data modify storage amenu:var detach.items set from storage gssen:out difference.unique_b
 
+execute store result score *detach.this_index amenu_var run data get storage amenu:var detach.this_menu.internal.index
 data merge storage amenu:in {fill:{in:{items:[]}}}
 #remaining slots (that may shadow other menus)
 #affects {in -> fill.in.items} & {var -> detach.items}

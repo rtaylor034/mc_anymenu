@@ -8,7 +8,7 @@ $execute unless data storage amenu:var attach.existing_host.internal.checked_con
 
 execute store result storage amenu:var attach.root.internal.index int 1 if data storage amenu:var attach.existing_host.menus[]
 
-data modify storage amenu:var attach.macro merge from storage amenu:in attach
+data modify storage amenu:var attach.macro set from storage amenu:in attach
 data modify storage amenu:var attach.macro merge from storage amenu:in attach.host
 
 #affects {var -> attach.save}

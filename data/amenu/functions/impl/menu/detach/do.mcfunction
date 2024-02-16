@@ -20,13 +20,13 @@ data modify storage amenu:var detach.items set from storage gssen:out difference
 execute store result score *detach.this_index amenu_var run data get storage amenu:var detach.this_menu.internal.index
 data merge storage amenu:in {fill:{in:{items:[]}}}
 #remaining slots (that may shadow other menus)
-#affects {in -> fill.in.items} & {var -> detach.items}
+#affects {in -> fill.items} & {var -> detach.items}
 data modify storage gssen:in repeat.function set value "amenu:impl/menu/detach/sfill"
 execute store result storage gssen:in repeat.n int 1 run scoreboard players get *detach.this_index amenu_var
 function gssen:api/inline/repeat
 
 #saved slots
-#affects {in -> fill.in.items} & {var -> detach.this_host}
+#affects {in -> fill.items} & {var -> detach.this_host}
 data modify storage gssen:in repeat.function set value "amenu:impl/menu/detach/saved"
 execute store result storage gssen:in repeat.n int 1 if data storage amenu:var detach.items[]
 function gssen:api/inline/repeat

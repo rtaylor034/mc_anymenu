@@ -44,8 +44,8 @@ data modify storage gssen:in difference.b set from storage amenu:var load.items
 data modify storage gssen:in difference.compare.only set value ["Slot"]
 function gssen:api/array/set/difference
 
-execute if data storage amenu:var load.this_host.UUID run data modify storage amenu:in fill.in.target.guuid set from storage amenu:var load.this_host.internal.guuid
-execute if data storage amenu:var load.this_host.x run data modify storage amenu:in fill.in.target set from storage amenu:var load.this_host
+execute if data storage amenu:var load.this_host.UUID run data modify storage amenu:in fill.target.guuid set from storage amenu:var load.this_host.internal.guuid
+execute if data storage amenu:var load.this_host.x run data modify storage amenu:in fill.target set from storage amenu:var load.this_host
 data modify storage amenu:in fill.items set from storage gssen:out difference.unique_b
 data modify storage amenu:in fill.container_path set from storage amenu:var load.this_menu.internal.container_path
 function amenu:internal/api/fill

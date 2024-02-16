@@ -31,9 +31,9 @@ execute if data storage amenu:in attach.host.UUID run function amenu:impl/menu/a
 
 data modify storage amenu:out attach.menu_id set from storage amenu:var attach.root.internal.menu_id
 
-data modify storage amenu:in load.in.menu_id set from storage amenu:var attach.root.internal.menu_id
-data modify storage amenu:in load.in.path set value []
-execute store result score *attach.load_return amenu_var run function amenu:api/menu/load with storage amenu:in load
+data modify storage amenu:in load.menu_id set from storage amenu:var attach.root.internal.menu_id
+data modify storage amenu:in load.path set value []
+execute store result score *attach.load_return amenu_var run function amenu:api/menu/load
 
 #detaches the menu
 execute unless score *attach.load_return amenu_var matches 1 run function amenu:impl/menu/attach/failed

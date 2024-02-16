@@ -19,8 +19,6 @@
 # 0 - could not load the menu, menu not attached. (<menu> failed with amenu:api/menu/load)
 #--------------------
 
-$data modify storage amenu:in attach set value $(in)
-
 scoreboard players add *max_menuid amenu_data 1
 data modify storage amenu:var attach.root set from storage amenu:in attach.menu
 execute store result storage amenu:var attach.root.internal.menu_id int 1 run scoreboard players get *max_menuid amenu_data

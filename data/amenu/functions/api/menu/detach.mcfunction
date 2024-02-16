@@ -12,8 +12,6 @@
 # 0 - no menu with <menu_id> exists on any host.
 #--------------------
 
-$data modify storage amenu:in detach set value $(in)
-
 execute store result score *detach amenu_return run function amenu:impl/menu/detach/do with storage amenu:in detach
 
 scoreboard players reset *detach.this_index amenu_var

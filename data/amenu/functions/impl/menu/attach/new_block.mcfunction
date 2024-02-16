@@ -13,18 +13,18 @@ data modify storage amenu:var attach.new_host.menus append from storage amenu:va
 data modify storage amenu:var attach.new_host.internal.checked_containers[0].path set from storage amenu:in attach.container_path
 
 #save items
-data modify storage gssen:in intersection.in.a append from storage amenu:var attach.root.items[].item
+data modify storage gssen:in intersection.a append from storage amenu:var attach.root.items[].item
 data modify storage amenu:var attach.macro set from storage amenu:in attach
 data modify storage amenu:var attach.macro merge from storage amenu:in attach.host
-#affects {gssen:in -> intersection.in.b}
+#affects {gssen:in -> intersection.b}
 function amenu:impl/menu/attach/new_block.1 with storage amenu:var attach.macro
-data modify storage gssen:in intersection.in.compare.only set value ["Slot"]
-function gssen:api/array/set/intersection with storage gssen:in intersection
+data modify storage gssen:in intersection.compare.only set value ["Slot"]
+function gssen:api/array/set/intersection
 
-data modify storage amenu:in default.in.slots append from storage amenu:var attach.root.items[].item
-data modify storage amenu:in default.in.items set from storage gssen:out intersection.shared_b
-data modify storage amenu:in default.in.item set value {id:"minecraft:air",Count:1b}
-function amenu:internal/api/items/default with storage amenu:in default
+data modify storage amenu:in default.slots append from storage amenu:var attach.root.items[].item
+data modify storage amenu:in default.items set from storage gssen:out intersection.shared_b
+data modify storage amenu:in default.item set value {id:"minecraft:air",Count:1b}
+function amenu:internal/api/items/default
 
 data modify storage amenu:var attach.new_host.internal.saved_items set from storage amenu:out default.result
 

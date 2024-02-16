@@ -13,8 +13,6 @@
 # ...
 #--------------------
 
-$data modify storage amenu:in fill set value $(in)
-
 data modify storage amenu:var fill.macros set from storage amenu:in fill
 data modify storage amenu:var fill.macros merge from storage amenu:in fill.target
 execute if data storage amenu:in fill.target.x run function amenu:internal/impl/fill/block with storage amenu:var fill.macros

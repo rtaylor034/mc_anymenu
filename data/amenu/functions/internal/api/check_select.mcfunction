@@ -12,8 +12,6 @@
 # ...
 #--------------------
 
-$data modify storage amenu:in check_select set value $(in)
-
 data modify storage amenu:var check_select set from storage amenu:in check_select
 data modify storage amenu:var check_select merge from storage amenu:var check_select.internal
 function amenu:internal/impl/check_select/check with storage amenu:var check_select

@@ -2,7 +2,7 @@
 #--------------------
 # -> menu_id: MenuId
 # -> path: string[]
-# => payload: obj = {}
+# => payload: any = {}
 #--------------------
 # ...
 #--------------------
@@ -25,8 +25,7 @@ execute unless data storage amenu:in load.payload run data modify storage amenu:
 
 execute store result score *load amenu_return run function amenu:impl/menu/load/do with storage amenu:in load
 
-scoreboard players reset *load.valid_path amenu_var
-scoreboard players reset *load.this_index amenu_var
+scoreboard players reset *load.success amenu_var
 data remove storage amenu:in load
 data remove storage amenu:var load
 

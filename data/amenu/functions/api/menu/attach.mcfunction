@@ -26,8 +26,8 @@ data modify storage amenu:var attach.root.internal.container_path set from stora
 
 data modify storage amenu:var attach.root.internal.index set value 0
 
-execute if data storage amenu:in attach.host.x run function amenu:impl/menu/attach/block_host with storage amenu:in attach
-execute if data storage amenu:in attach.host.UUID run function amenu:impl/menu/attach/entity_host with storage amenu:in attach
+execute if data storage amenu:in attach.host.x run data merge storage amenu:var {attach:{get:{host_pool:"blocks"}}}
+execute if data storage amenu:in attach.host.UUID run data merge storage amenu:var {attach:{get:{host_pool:"entities"}}}
 
 data modify storage amenu:out attach.menu_id set from storage amenu:var attach.root.internal.menu_id
 

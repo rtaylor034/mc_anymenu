@@ -20,7 +20,10 @@ Host: {
         prev_items[]: Item
         checked_containers[]: {path: string}
         stacks[]: {
-            Slot: byte
+            location: {
+                Slot: byte
+                container: string
+            }
             saved: Item
             stack[]: {
                 item: Item

@@ -12,10 +12,17 @@
 # 0 - no menu with <menu_id> exists on any host.
 #--------------------
 
-execute store result score *detach amenu_return run function amenu:impl/menu/detach/do with storage amenu:in detach
+execute store result score *detach amenu_return run function amenu:internal/api/host/getm with storage amenu:in detach
+execute if score *detach amenu_return matches 0 run return run function amenu:impl/menu/detach/failed
 
-scoreboard players reset *detach.this_index amenu_var
+function amenu:impl/menu/detach/remove_menu with storage amenu:in detach
+
+data modify storage amenu:var detach.stacks set from storage amenu:out _getm.host.internal.stacks
+execute if data storage amenu:var detach.stacks[] run function amenu:impl/menu/detach/each_stack with storage amenu:in detach
+
+
+
 data remove storage amenu:var detach
 data remove storage amenu:in detach
 
-return run scoreboard players get *detach amenu_return
+return 1

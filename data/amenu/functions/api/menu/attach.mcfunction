@@ -39,7 +39,13 @@ data modify storage amenu:var attach.this_host.menus append from storage amenu:v
 data modify storage amenu:var attach.stack_element.from set from storage amenu:var attach.root.internal.menu_id
 data modify storage amenu:var attach.stack_element.item set value {}
 data modify storage amenu:var attach.menu_items set from storage amenu:var attach.root.items
-execute if data storage amenu:var attach.menu_items[] run function amenu:impl/menu/attack/each_item with storage amenu:var attach.menu_items[-1]
+data modify storage amenu:var attach.each_pass.location.container set from storage amenu:in attach.container_path
+data modify storage amenu:var attach.each_pass.location.Slot set from storage amenu:var attach.menu_items[-1].item.Slot
+execute if data storage amenu:var attach.menu_items[] run function amenu:impl/menu/attach/each_item with storage amenu:var attach.each_pass
+
+data modify storage amenu:var attach.call.identifier set from storage amenu:in attach.host
+data modify storage amenu:var attach.call.host set from storage amenu:var attach.this_host
+function amenu:internal/api/host/set with storage amenu:var attach.call
 
 data modify storage amenu:in load.menu_id set from storage amenu:var attach.root.internal.menu_id
 data modify storage amenu:in load.path set value []

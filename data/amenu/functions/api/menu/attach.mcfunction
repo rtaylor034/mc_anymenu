@@ -1,6 +1,6 @@
 #> amenu:api > menu/attach
 #--------------------
-# -> host: {x: int, y: int, z: int} | {UUID: uuid}
+# -> host: HostIdentifier
 # -> container_path: string
 # -> menu: Menu
 #--------------------
@@ -11,7 +11,7 @@
 #> generates and returns the attached <menu>'s >menu_id<.
 #--------------------
 #- it is necessary to store >menu_id< for later use with amenu:api/menu/detach.
-#- ex <container_path>: "Inventory" if the <host> is a player, or "Items" if the <host> is a chest block. (it should be clear what a host's container path can be from the output of a '/data get')
+#- ex <container_path>: "Inventory" if the <host> is a player, or "Items" if the <host> is a chest block. (it should be clear what a host's container path is from the output of a '/data get')
 #- this function is relatively expensive; avoid unecessary calls.
 #- automatically loads the menu (amenu:api/menu/load)
 #--------------------
@@ -24,12 +24,22 @@ data modify storage amenu:var attach.root set from storage amenu:in attach.menu
 execute store result storage amenu:var attach.root.internal.menu_id int 1 run scoreboard players get *max_menuid amenu_data
 data modify storage amenu:var attach.root.internal.container_path set from storage amenu:in attach.container_path
 
-data modify storage amenu:var attach.root.internal.index set value 0
-
-execute if data storage amenu:in attach.host.x run data merge storage amenu:var {attach:{get:{host_pool:"blocks"}}}
-execute if data storage amenu:in attach.host.UUID run data merge storage amenu:var {attach:{get:{host_pool:"entities"}}}
-
 data modify storage amenu:out attach.menu_id set from storage amenu:var attach.root.internal.menu_id
+
+data modify storage amenu:var attach.call.identifier set from storage amenu:in attach.host
+execute store result score *attach.exists amenu_var run function amenu:internal/api/host/get with storage amenu:var attach.call
+data modify storage amenu:var attach.this_host set from storage amenu:out _get.result
+
+execute unless score *attach.exists amenu_var matches 1.. run data modify storage amenu:in _add.identifier set from storage amenu:in attach.host
+execute unless score *attach.exists amenu_var matches 1.. run function amenu:internal/api/host/add
+execute unless score *attach.exists amenu_var matches 1.. run data modify storage amenu:var attach.this_host set from storage amenu:out _add.result
+
+data modify storage amenu:var attach.this_host.menus append from storage amenu:var attach.root
+
+data modify storage amenu:var attach.stack_element.from set from storage amenu:var attach.root.internal.menu_id
+data modify storage amenu:var attach.stack_element.item set value {}
+data modify storage amenu:var attach.menu_items set from storage amenu:var attach.root.items
+execute if data storage amenu:var attach.menu_items[] run function amenu:impl/menu/attack/each_item with storage amenu:var attach.menu_items[-1]
 
 data modify storage amenu:in load.menu_id set from storage amenu:var attach.root.internal.menu_id
 data modify storage amenu:in load.path set value []
@@ -40,7 +50,7 @@ execute unless score *attach.load_return amenu_var matches 1 run function amenu:
 execute store success score *attach amenu_return if score *attach.load_return amenu_var matches 1
 
 scoreboard players reset *attach.load_return amenu_var
-scoreboard players reset *attach.host_exists amenu_var
+scoreboard players reset *attach.exists amenu_var
 data remove storage amenu:var attach
 data remove storage amenu:in attach
 

@@ -10,37 +10,40 @@ supports:
 - handle active menu entity death (ensure safety of saved items)
 
 amenu:data {
-    active_hosts: {
-        entities[]: {
-            UUID: uuid
-            internal: {
-                guuid: guuid
-            }
-            (Host)
-        }
-        blocks[]: {
-            x: int
-            y: int
-            z: int
-            (Host)
-        }
-    }
+    active_hosts[]: Host
 }
 
 Host: {
+    identifier: HostIdentifier
     menus[]: RootMenu
     internal: {
         prev_items[]: Item
         checked_containers[]: {path: string}
         stacks[]: {
-            slot: byte
+            Slot: byte
             saved: Item
             stack[]: {
                 item: Item
                 from: MenuId
             }
        }
+       # present if host is type 'entity'
+       guuid? guuid
     }
+}
+
+HostIdentifier: BlockIdentifier | EntityIdentifier
+
+BlockIdentifier: {
+    block: {
+        x: int
+        y: int
+        z: int
+    }
+}
+
+EntityIdentifier: {
+    UUID: uuid
 }
 
 RootMenu: {

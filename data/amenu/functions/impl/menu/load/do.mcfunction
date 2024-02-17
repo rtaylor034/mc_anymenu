@@ -3,12 +3,11 @@
 # - @api
 #--------------------
 
-$data modify storage amenu:var load.this_host set from storage amenu:data active_hosts.entities[{menus:[{internal:{menu_id:$(menu_id)}}]}]
-$execute unless data storage amenu:var load.this_host run data modify storage amenu:var load.this_host set from storage amenu:data active_hosts.blocks[{menus:[{internal:{menu_id:$(menu_id)}}]}]
+$data modify storage amenu:var load.this_host set from storage amenu:data active_hosts[{menus:[{internal:{menu_id:$(menu_id)}}]}]
 execute unless data storage amenu:var load.this_host run return -1
 
 $data modify storage amenu:var load.this_menu set from storage amenu:var load.this_host.menus[{internal:{menu_id:$(menu_id)}}]
-execute unless data storage amenu:var load.this_menu run return -3
+execute unless data storage amenu:var load.this_menu run return -1
 
 # traverse path
 data modify storage amenu:in traverse_path.path set from storage amenu:in load.path
@@ -26,23 +25,21 @@ function gssen:api/inline/repeat
 # evaluate items
 data modify storage amenu:in evaluate.items set from storage amenu:var load.to_menu.items
 execute store result score *load.success amenu_var run function amenu:internal/api/evaluate
-execute unless score *load.success amenu_var matches 1 run return -4
+execute unless score *load.success amenu_var matches 1 run return -3
 
 # affects {var -> load.this_host}
 data modify storage amenu:var load.item_entries set from storage amenu:out evaluate.result
 data modify storage amenu:var load.item_entries[-1].menu_id set from storage amenu:var load.this_menu.internal.menu_id
 execute if data storage amenu:var load.item_entries[] run function amenu:impl/menu/load/each_item with storage amenu:var load.item_entries[-1]
 
-execute if data storage amenu:var load.this_host.UUID run data merge storage amenu:var {load:{set:{host_pool:"entities"}}}
-execute if data storage amenu:var load.this_host.x run data merge storage amenu:var {load:{set:{host_pool:"blocks"}}}
 data modify storage amenu:var load.set.menu_id set from storage amenu:var load.this_menu.internal.menu_id
 function amenu:impl/menu/load/set_hostdata with storage amenu:var load.set
 
 data modify storage amenu:var load.stacks set from storage amenu:var load.this_host.internal.stacks
 # affects {in -> fill.items}
 execute if data storage amenu:var load.stacks[] run function amenu:impl/menu/load/get_fill_items with storage amenu:var load.this_menu.internal
-execute if data storage amenu:var load.this_host.UUID run data modify storage amenu:in fill.target.guuid set from storage amenu:var load.this_host.internal.guuid
-execute if data storage amenu:var load.this_host.x run data modify storage amenu:in fill.target set from storage amenu:var load.this_host
+execute if data storage amenu:var load.this_host.identifier.entity run data modify storage amenu:in fill.target.guuid set from storage amenu:var load.this_host.internal.guuid
+execute if data storage amenu:var load.this_host.identifier.block run data modify storage amenu:in fill.target set from storage amenu:var load.this_host.identifier.block
 data modify storage amenu:in fill.container_path set from storage amenu:var load.this_menu.internal.container_path
 function amenu:internal/api/fill
 

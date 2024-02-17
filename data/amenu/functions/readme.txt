@@ -32,14 +32,14 @@ Host: {
     internal: {
         prev_items[]: Item
         checked_containers[]: {path: string}
-    }
-    stacks[]: {
-        slot: byte
-        saved: Item
-        stack[]: {
-            item: Item
-            from: MenuId
-        }
+        stacks[]: {
+            slot: byte
+            saved: Item
+            stack[]: {
+                item: Item
+                from: MenuId
+            }
+       }
     }
 }
 

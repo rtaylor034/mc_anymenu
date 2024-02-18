@@ -4,7 +4,7 @@
 # -> container_path: string
 # -> menu: Menu
 #--------------------
-# <- menu_id: MenuId
+# <- result: MenuId
 #--------------------
 #> activates <menu> on the block or entity specified by <host>.
 #> the NBT path that <host> uses to store their array of Items should be specified by <container_path>.
@@ -24,7 +24,7 @@ data modify storage amenu:var attach.root set from storage amenu:in attach.menu
 execute store result storage amenu:var attach.root.internal.menu_id int 1 run scoreboard players get *max_menuid amenu_data
 data modify storage amenu:var attach.root.internal.container_path set from storage amenu:in attach.container_path
 
-data modify storage amenu:out attach.menu_id set from storage amenu:var attach.root.internal.menu_id
+data modify storage amenu:out attach.result set from storage amenu:var attach.root.internal.menu_id
 
 data modify storage amenu:var attach.call.identifier set from storage amenu:in attach.host
 execute store result score *attach.exists amenu_var run function amenu:internal/api/host/get with storage amenu:var attach.call

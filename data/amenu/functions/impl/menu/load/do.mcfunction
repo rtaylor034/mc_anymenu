@@ -36,12 +36,8 @@ execute if data storage amenu:var load.items[] run function amenu:impl/menu/load
 data modify storage amenu:var load.set.menu_id set from storage amenu:var load.this_menu.internal.menu_id
 function amenu:impl/menu/load/set_hostdata with storage amenu:var load.set
 
-data modify storage amenu:var load.stacks set from storage amenu:var load.this_host.internal.stacks
-# affects {in -> fill.items}
-execute if data storage amenu:var load.stacks[] run function amenu:impl/menu/load/get_fill_items with storage amenu:var load.this_menu.internal
-execute if data storage amenu:var load.this_host.identifier.entity run data modify storage amenu:in fill.target.guuid set from storage amenu:var load.this_host.internal.guuid
-execute if data storage amenu:var load.this_host.identifier.block run data modify storage amenu:in fill.target set from storage amenu:var load.this_host.identifier.block
-data modify storage amenu:in fill.container_path set from storage amenu:var load.this_menu.internal.container_path
-function amenu:internal/api/fill
+data modify storage amenu:in refresh.host set from storage amenu:var load.this_host.identifier
+data modify storage amenu:in refresh.container_path set from storage amenu:var load.this_menu.internal.container_path
+function amenu:api/host/refresh
 
 return 1

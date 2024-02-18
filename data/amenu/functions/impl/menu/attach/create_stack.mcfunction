@@ -8,11 +8,12 @@ execute if data storage amenu:in attach.host.block run data modify storage amenu
 execute if data storage amenu:in attach.host.entity run data modify storage amenu:var attach.create_stack set from storage amenu:var attach.this_host.internal
 data modify storage amenu:var attach.create_stack.Slot set from storage amenu:var attach.each_pass.location.Slot
 data modify storage amenu:var attach.create_stack.container_path set from storage amenu:var attach.each_pass.location.container
-# affects {var -> attach.new_stack.saved}
+
+data modify storage amenu:var attach.new_stack.stack append value {item:{id:"minecraft:air", Count:0b},from:"CONTAINER"}
+# affects {var -> new_stack.stack}
 execute if data storage amenu:in attach.host.block run function amenu:impl/menu/attach/get_block with storage amenu:var attach.create_stack
 execute if data storage amenu:in attach.host.entity run function amenu:impl/menu/attach/get_entity with storage amenu:var attach.create_stack
 
-execute unless data storage amenu:var attach.new_stack.saved run data modify storage amenu:var attach.new_stack.saved set value {id:"minecraft:air", Count:0b}
 data modify storage amenu:var attach.new_stack.location set from storage amenu:var attach.each_pass.location
 data modify storage amenu:var attach.new_stack.stack append from storage amenu:var attach.stack_element
 

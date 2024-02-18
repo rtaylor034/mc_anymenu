@@ -5,7 +5,7 @@
 #--------------------
 # ...
 #--------------------
-#> refreshes <host>'s <container_path>, displaying the latest-loaded menus
+#> for each tracked slot in <host>'s <container_path>, replaces it with the loaded item that is 'on-top'.
 #--------------------
 #- this is automatically called when menus are attach/loaded/detached, for advanced use only.
 #--------------------

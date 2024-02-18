@@ -4,4 +4,4 @@
 #--------------------
 
 data remove storage amenu:in detach
-return 0
+return fail

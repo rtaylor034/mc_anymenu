@@ -8,5 +8,7 @@
 #> gets an active host by <menu_id>
 #--------------------
 
-$data modify storage amenu:out _getm.host set from storage amenu:data active_hosts[menus:[{internal:{menu_id:$(menu_id)}}]]
+data remove storage amenu:out _getm.host
+data remove storage amenu:out _getm.menu
+$data modify storage amenu:out _getm.host set from storage amenu:data active_hosts[{menus:[{internal:{menu_id:$(menu_id)}}]}]
 $return run data modify storage amenu:out _getm.menu set from storage amenu:out _getm.host.menus[{internal:{menu_id:$(menu_id)}}]

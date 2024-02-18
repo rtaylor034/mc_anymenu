@@ -1,7 +1,7 @@
 #> amenu:impl/menu/attach/each_item
 #--------------------
 # @api
-#--------------------o
+#--------------------
 
 $execute store result score *attach.exists amenu_var if data storage amenu:var attach.this_host.internal.stacks[{location:$(location)}]
 $execute if score *attach.exists amenu_var matches 1.. run data modify storage amenu:var attach.this_host.internal.stacks[{location:$(location)}].stack append from storage amenu:var attach.stack_element

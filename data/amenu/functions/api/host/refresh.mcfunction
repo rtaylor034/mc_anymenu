@@ -18,7 +18,7 @@ execute store result score *refresh amenu_return run function amenu:impl/host/re
 data modify storage amenu:var refresh.call.identifier set from storage amenu:in refresh.host
 function amenu:internal/api/host/get with storage amenu:var refresh.call
 
-execute if data storage amenu:in refresh.host.entity run data modify storage amenu:in fill.target.guuid set from storage amenu:var _get.result.internal.guuid
+execute if data storage amenu:in refresh.host.entity run data modify storage amenu:in fill.target.guuid set from storage amenu:out _get.result.internal.guuid
 execute if data storage amenu:in refresh.host.block run data modify storage amenu:in fill.target set from storage amenu:in refresh.host.block
 data modify storage amenu:in fill.container_path set from storage amenu:in refresh.container_path
 data modify storage amenu:in fill.items set from storage amenu:var refresh.items

@@ -9,7 +9,7 @@ execute if data storage amenu:in attach.host.entity run data modify storage amen
 data modify storage amenu:var attach.create_stack.Slot set from storage amenu:var attach.each_pass.location.Slot
 data modify storage amenu:var attach.create_stack.container_path set from storage amenu:var attach.each_pass.location.container_path
 
-data modify storage amenu:var attach.new_stack.stack append value {item:{id:"minecraft:air", Count:0b},from:"CONTAINER"}
+data modify storage amenu:var attach.new_stack.stack append value {item:{id:"minecraft:air", Count:1b},from:"CONTAINER"}
 data modify storage amenu:var attach.new_stack.stack[-1].item.Slot set from storage amenu:var attach.each_pass.location.Slot
 
 # affects {var -> new_stack.stack}

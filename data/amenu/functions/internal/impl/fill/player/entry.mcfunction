@@ -3,8 +3,8 @@
 # ../entity
 #--------------------
 
-execute unless function amenu:internal/impl/fill/player/check_inventory run data modify storage amenu:var fill.macros.replacer set value "container"
-execute unless function amenu:internal/impl/fill/player/check_echest run data modify storage amenu:var fill.macros.replacer set value "enderchest"
+execute if data storage amenu:in fill{container_path:"Inventory"} run data modify storage amenu:var fill.macros.replacer set value "container"
+execute if data storage amenu:in fill{container_path:"EnderItems"} run data modify storage amenu:var fill.macros.replacer set value "enderchest"
 
 data modify storage gssen:in repeat.function set value "amenu:internal/impl/fill/player/iter"
 data modify storage gssen:in repeat.with set value "amenu:var fill.macros"

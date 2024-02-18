@@ -18,16 +18,15 @@ Host: {
     menus[]: RootMenu
     internal: {
         prev_items[]: Item
-        checked_containers[]: {path: string}
+        checked_containers[]: {container_path: string}
         stacks[]: {
             location: {
                 Slot: byte
-                container: string
+                container_path: string
             }
-            saved: Item
             stack[]: {
                 item: Item
-                from: MenuId
+                from: MenuId | "CONTAINER"
             }
        }
        # present if host is type 'entity'
@@ -46,7 +45,9 @@ BlockIdentifier: {
 }
 
 EntityIdentifier: {
-    UUID: uuid
+    entity {
+        UUID: uuid
+    }
 }
 
 RootMenu: {

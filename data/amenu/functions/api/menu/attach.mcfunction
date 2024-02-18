@@ -8,9 +8,9 @@
 #--------------------
 #> activates <menu> on the block or entity specified by <host>.
 #> the NBT path that <host> uses to store their array of Items should be specified by <container_path>.
-#> generates and returns the attached <menu>'s >menu_id<.
+#> generates and returns the attached <menu>'s menu_id as >result<.
 #--------------------
-#- it is necessary to store >menu_id< for later use with amenu:api/menu/detach.
+#- it is necessary to store >result< for later use with amenu:api/menu/detach.
 #- ex <container_path>: "Inventory" if the <host> is a player, or "Items" if the <host> is a chest block. (it should be clear what a host's container path is from the output of a '/data get')
 #- this function is relatively expensive; avoid unecessary calls.
 #- automatically loads the menu (amenu:api/menu/load)
@@ -39,9 +39,13 @@ data modify storage amenu:var attach.this_host.menus append from storage amenu:v
 data modify storage amenu:var attach.stack_element.from set from storage amenu:var attach.root.internal.menu_id
 data modify storage amenu:var attach.stack_element.item set value {}
 data modify storage amenu:var attach.menu_items set from storage amenu:var attach.root.items
-data modify storage amenu:var attach.each_pass.location.container set from storage amenu:in attach.container_path
+data modify storage amenu:var attach.each_pass.location.container_path set from storage amenu:in attach.container_path
 data modify storage amenu:var attach.each_pass.location.Slot set from storage amenu:var attach.menu_items[-1].item.Slot
 execute if data storage amenu:var attach.menu_items[] run function amenu:impl/menu/attach/each_item with storage amenu:var attach.each_pass
+
+data modify storage amenu:in _getcontainers.host set from storage amenu:var attach.this_host
+function amenu:internal/api/host/getcontainers
+data modify storage amenu:var attach.this_host.internal.checked_containers set from storage amenu:out _getcontainers.result
 
 data modify storage amenu:var attach.call.identifier set from storage amenu:in attach.host
 data modify storage amenu:var attach.call.host set from storage amenu:var attach.this_host

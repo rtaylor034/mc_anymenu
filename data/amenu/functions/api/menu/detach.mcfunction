@@ -18,6 +18,10 @@ execute if score *detach amenu_return matches 0 run return run function amenu:im
 
 function amenu:impl/menu/detach/remove_data with storage amenu:in detach
 
+data modify storage amenu:in _getcontainers.host set from storage amenu:out _getm.host
+function amenu:internal/api/host/getcontainers
+data modify storage amenu:out _getm.host.internal.checked_containers set from storage amenu:out _getcontainers.result
+
 data modify storage amenu:var detach.call.host set from storage amenu:out _getm.host
 data modify storage amenu:var detach.call.identifier set from storage amenu:out _getm.host.identifier
 function amenu:internal/api/host/set with storage amenu:var detach.call

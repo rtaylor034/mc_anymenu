@@ -12,6 +12,6 @@ data modify storage amenu:out _add.result.identifier set from storage amenu:in _
 
 execute if data storage amenu:in _add.identifier.entity run function amenu:internal/impl/host/add/guuid
 
-data modify storage amenu:data active_hosts append from storage amenu:out _add.result.identifier
+data modify storage amenu:data active_hosts append from storage amenu:out _add.result
 
 data remove storage amenu:in _add

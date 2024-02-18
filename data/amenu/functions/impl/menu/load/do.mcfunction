@@ -23,14 +23,15 @@ data modify storage gssen:in repeat.function set value "amenu:impl/menu/load/cal
 function gssen:api/inline/repeat
 
 # evaluate items
-data modify storage amenu:in evaluate.items set from storage amenu:var load.to_menu.items
 execute store result score *load.success amenu_var run function amenu:internal/api/evaluate
 execute unless score *load.success amenu_var matches 1 run return -3
 
 # affects {var -> load.this_host}
-data modify storage amenu:var load.item_entries set from storage amenu:out evaluate.result
-data modify storage amenu:var load.item_entries[-1].menu_id set from storage amenu:var load.this_menu.internal.menu_id
-execute if data storage amenu:var load.item_entries[] run function amenu:impl/menu/load/each_item with storage amenu:var load.item_entries[-1]
+data modify storage amenu:var load.items set from storage amenu:out evaluate.result
+data modify storage amenu:var load.each_item.menu_id set from storage amenu:var load.this_menu.internal.menu_id
+data modify storage amenu:var load.each_item.location.container_path set from storage amenu:var load.this_menu.internal.container_path
+data modify storage amenu:var load.each_item.location.Slot set from storage amenu:var load.items[-1].Slot
+execute if data storage amenu:var load.items[] run function amenu:impl/menu/load/each_item with storage amenu:var load.each_item
 
 data modify storage amenu:var load.set.menu_id set from storage amenu:var load.this_menu.internal.menu_id
 function amenu:impl/menu/load/set_hostdata with storage amenu:var load.set

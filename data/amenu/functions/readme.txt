@@ -10,53 +10,59 @@ supports:
 - handle active menu entity death (ensure safety of saved items)
 
 amenu:data {
-    active_hosts: {
-        entities[]: {
-            UUID: uuid
-            internal: {
-                guuid: guuid
-            }
-            (Host)
-        }
-        blocks[]: {
-            x: int
-            y: int
-            z: int
-            (Host)
-        }
-    }
+    active_hosts[]: Host
 }
 
 Host: {
+    identifier: HostIdentifier
     menus[]: RootMenu
     internal: {
         prev_items[]: Item
-        saved_items[]: Item
-        checked_containers[]: {path: string}
+        checked_containers[]: {container_path: string}
+        stacks[]: {
+            location: {
+                Slot: byte
+                container_path: string
+            }
+            stack[]: {
+                item: Item
+                from: MenuId | "CONTAINER"
+            }
+       }
+       # present if host is type 'entity'
+       guuid? guuid
+    }
+}
+
+HostIdentifier: BlockIdentifier | EntityIdentifier
+
+BlockIdentifier: {
+    block: {
+        x: int
+        y: int
+        z: int
+    }
+}
+
+EntityIdentifier: {
+    entity {
+        UUID: uuid
     }
 }
 
 RootMenu: {
     internal: {
-        #-- for knowing what items to display if menu <a> is 'uncovered' by menu <b> being detached
-        last_loaded[]: Item
         container_path: string
-        menu_id: int
-        #-- just so loading doesnt have to manually 'index_of' for figuring out layers
-        index: int
-        shadowed_slots[]: {
-            from: MenuId
-            slot: byte
-        }
+        menu_id: MenuId
     }
     (Menu)
 }
 
 Menu: {
-    #-- provided $(payload: any) $(menu_id: MenuId)
-    on_load[]? string
-    #-- provided $(interaction: InteractData) $(menu_id: MenuId)
-    on_real_interact[]? string
+    #-- gvent : -> menu_id: MenuId ; -> payload: any
+    on_load[]? mstring<Function>
+    #-- gvent : -> interaction: InteractData, -> menu_id: MenuId
+    on_real_interact[]? mstring<Function>
     items[]: MenuItem
     sub_menus: {
         <ident...>? Menu
@@ -92,6 +98,8 @@ ItemNbt: {
     }
     (ANY)
 }
+
+MenuId: int
 
 -- WHERE IM AT --
 - adding more functionality to on_load.

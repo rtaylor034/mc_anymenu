@@ -1,6 +1,6 @@
 #> amenu:impl/menu/attach/failed
 #--------------------
-# - @api
+# @api
 #--------------------
 
 data modify storage amenu:in detach.menu_id set from storage amenu:var attach.root.internal.menu_id

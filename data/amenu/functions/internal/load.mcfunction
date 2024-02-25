@@ -2,6 +2,9 @@
 #--------------------
 # @LOAD
 #--------------------
+
+scoreboard players set *amenu load.status 1
+
 #settings
 execute unless data storage amenu:settings {PERSIST:true} run function amenu:settings
 
@@ -12,3 +15,6 @@ execute unless data storage amenu:settings {PERSIST:true} run function amenu:set
 scoreboard objectives add amenu_var dummy
 scoreboard objectives add amenu_return dummy
 scoreboard objectives add amenu_data dummy
+
+schedule clear amenu:internal/tick
+schedule function amenu:internal/tick 1t
